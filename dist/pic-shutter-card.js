@@ -42,6 +42,11 @@ class ShutterCard extends HTMLElement {
           outsideWindow = entity.outside_window.toLowerCase();
         }
         
+        let outsideWindowpic = '/hacsfiles/pic-shutter-card/outside_window.png';
+        if (entity && entity.outside_window_pic) {
+          outsideWindowpic = entity.outside_window_pic.toLowerCase();
+        }
+        
         let shutter = document.createElement('div');
 
         shutter.className = 'sc-shutter';
@@ -62,7 +67,7 @@ class ShutterCard extends HTMLElement {
               <ha-icon-button class="sc-shutter-button" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
-              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="/hacsfiles/pic-shutter-card/outside_window.png"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="/hacsfiles/pic-shutter-card/frame_window.png">
+              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="/hacsfiles/pic-shutter-card/frame_window.png">
                 <div class="sc-shutter-selector-slide"></div>
                 <div class="sc-shutter-selector-picker"></div>
               </div>
