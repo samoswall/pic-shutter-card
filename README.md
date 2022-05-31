@@ -5,15 +5,15 @@
 
 1 sample
 
-![all](Image/2pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/2pic.png)
 
 2 sample
 
-![all](Image/1pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/1pic.png)
 
 3 sample
 
-![all](Image/3pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/3pic.png)
 
 ## Install
 
