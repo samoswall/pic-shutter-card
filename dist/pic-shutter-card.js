@@ -42,9 +42,24 @@ class ShutterCard extends HTMLElement {
           outsideWindow = entity.outside_window.toLowerCase();
         }
         
-        let outsideWindowpic = '/hacsfiles/pic-shutter-card/outside_window.png';
+        let outsideWindowpic = '/hacsfiles/hass-shutter-card/outside_window.png';
         if (entity && entity.outside_window_pic) {
           outsideWindowpic = entity.outside_window_pic.toLowerCase();
+        }	
+
+        let framewindowpic = '/hacsfiles/hass-shutter-card/frame_window.png';
+        if (entity && entity.frame_window_pic) {
+          framewindowpic = entity.frame_window_pic.toLowerCase();
+        }		
+        
+		let shutterslidepic = '/hacsfiles/hass-shutter-card/sc_shutter_slide.png';
+        if (entity && entity.shutter_slide_pic) {
+          shutterslidepic = entity.shutter_slide_pic.toLowerCase();
+        }		
+        
+		let shutterbottompic = '/hacsfiles/hass-shutter-card/sc_shutter_bottom.png';
+        if (entity && entity.shutter_bottom_pic) {
+          shutterbottompic = entity.shutter_bottom_pic.toLowerCase();
         }
         
         let shutter = document.createElement('div');
@@ -67,9 +82,9 @@ class ShutterCard extends HTMLElement {
               <ha-icon-button class="sc-shutter-button" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
-              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="/hacsfiles/pic-shutter-card/frame_window.png">
-                <div class="sc-shutter-selector-slide"></div>
-                <div class="sc-shutter-selector-picker"></div>
+              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `">
+                <div class="sc-shutter-selector-slide" style="background-image: url(` + shutterslidepic + `);"></div>
+                <div class="sc-shutter-selector-picker" style="background-image: url(` + shutterbottompic + `);"></div>
               </div>
             </div>
           </div>
@@ -185,9 +200,7 @@ class ShutterCard extends HTMLElement {
               .frame-window { position: relative;}
               .sc-shutter-outside-window {position: absolute; left: 5px; top: 9px; width: 92%;}
               .sc-shutter-selector-slide { position: absolute; top: 19px; left: 9px; width: 88%; height: 0; }
-                .sc-shutter-selector-slide { background-image: url(/hacsfiles/pic-shutter-card/sc_shutter_slide.png); }
               .sc-shutter-selector-picker { position: absolute; top: 19px; left: 9px; width: 88%; cursor: pointer; height: 20px; background-repeat: no-repeat; }
-                .sc-shutter-selector-picker { background-image: url(/hacsfiles/pic-shutter-card/sc_shutter_bottom.png); }
           .sc-shutter-top { text-align: center; margin-bottom: 1rem; }
           .sc-shutter-bottom { text-align: center; margin-top: 1rem; }
             .sc-shutter-label { display: inline-block; font-size: 20px; vertical-align: middle; }
