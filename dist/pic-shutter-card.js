@@ -42,22 +42,22 @@ class ShutterCard extends HTMLElement {
           outsideWindow = entity.outside_window.toLowerCase();
         }
         
-        let outsideWindowpic = '/hacsfiles/hass-shutter-card/outside_window.png';
+        let outsideWindowpic = '/hacsfiles/pic-shutter-card/outside_window.png';
         if (entity && entity.outside_window_pic) {
           outsideWindowpic = entity.outside_window_pic.toLowerCase();
         }	
 
-        let framewindowpic = '/hacsfiles/hass-shutter-card/frame_window.png';
+        let framewindowpic = '/hacsfiles/pic-shutter-card/frame_window.png';
         if (entity && entity.frame_window_pic) {
           framewindowpic = entity.frame_window_pic.toLowerCase();
         }		
         
-		let shutterslidepic = '/hacsfiles/hass-shutter-card/sc_shutter_slide.png';
+	let shutterslidepic = '/hacsfiles/pic-shutter-card/sc_shutter_slide.png';
         if (entity && entity.shutter_slide_pic) {
           shutterslidepic = entity.shutter_slide_pic.toLowerCase();
         }		
         
-		let shutterbottompic = '/hacsfiles/hass-shutter-card/sc_shutter_bottom.png';
+	let shutterbottompic = '/hacsfiles/pic-shutter-card/sc_shutter_bottom.png';
         if (entity && entity.shutter_bottom_pic) {
           shutterbottompic = entity.shutter_bottom_pic.toLowerCase();
         }
