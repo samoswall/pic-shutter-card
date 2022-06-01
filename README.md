@@ -40,6 +40,11 @@ If you don't use HACS, you can download js file from [latest releases](https://g
 | title_position | string | False | `top` | Set title on `top` or on `bottom` of the shutter
 | outside_window | string | False | `not show` | Set it to `show` for visibility of the background picture outside the window
 | invert_percentage | boolean | False | `false` | Set it to `true` if your shutter is 100% when it is closed, and 0% when it is opened
+| outside_window_pic | string | False | `/local/community/pic-shutter-card/outside_window1.png` | Image file outside the window
+| frame_window_pic | string | False | `/local/community/pic-shutter-card/frame_window.png` | Window frame picture file
+| shutter_slide_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_slide.png` | Image file of the roller shutter canvas
+| shutter_bottom_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Image file of the roller shutter bottom
+
 
 _Remark : you can also just give the entity ID (without to specify `entity:`) if you don't need to specify the other configurations._
 
@@ -54,6 +59,10 @@ entities:
     buttons_position: left
     title_position: bottom
     outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/my_outside_window.png
+    frame_window_pic: /local/community/pic-shutter-card/my_frame_window.png
+    shutter_slide_pic: /local/community/pic-shutter-card/my_shutter_slide.png
+    shutter_bottom_pic: /local/community/pic-shutter-card/my_shutter_bottom.png
 ```
 
 ## Modification
@@ -84,7 +93,7 @@ font-size: 15px !IMPORTANT;                       # Font size change string
 }                                                 # Closing parenthesis 
 ```
 
-css code for changing the card:
+## css code for changing the card:
 
 ```yaml
 style: |
