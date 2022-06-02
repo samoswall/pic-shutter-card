@@ -13,7 +13,7 @@
 
 3 sample
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/v1.0.0/Image/3pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/v1.0.0/Image/v1.0.2.png)
 
 ## Install
 
