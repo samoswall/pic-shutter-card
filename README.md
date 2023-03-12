@@ -43,8 +43,8 @@ If you don't use HACS, you can download js file from [latest releases](https://g
 | title_position | string | False | `top` | Set title on `top` or on `bottom` of the shutter
 | outside_window | string | False | `not show` | Set it to `show` for visibility of the background picture outside the window
 | invert_percentage | boolean | False | `false` | Set it to `true` if your shutter is 100% when it is closed, and 0% when it is opened
-| outside_window_pic | string | False | `/local/community/pic-shutter-card/outside_window1.png` | Image file outside the window
-| frame_window_pic | string | False | `/local/community/pic-shutter-card/frame_window.png` | Window frame picture file
+| outside_window_pic | string | False | `/local/community/pic-shutter-card/outside_window.png` | Image file outside the window. Uploaded in the card: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
+| frame_window_pic | string | False | `/local/community/pic-shutter-card/frame_window.png` | Window frame picture file. Uploaded in the card: `frame_window.png` `frame_win1.png` `frame_win2.png`
 | shutter_slide_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_slide.png` | Image file of the roller shutter canvas
 | shutter_bottom_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Image file of the roller shutter bottom
 | shutter_min_position | int | False | 17 | Indent from the top edge of the window to the beginning of the shutter in pixels
