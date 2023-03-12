@@ -1,8 +1,9 @@
 class ShutterCard extends HTMLElement {
+	
   set hass(hass) {
     const _this = this;
     const entities = this.config.entities;
-    
+
     //Init the card
     if (!this.card) {
       const card = document.createElement('ha-card');
@@ -42,12 +43,46 @@ class ShutterCard extends HTMLElement {
           outsideWindow = entity.outside_window.toLowerCase();
         }
         
+        let outsideWindowpic = '/hacsfiles/pic-shutter-card/outside_window.png';
+        if (entity && entity.outside_window_pic) {
+          outsideWindowpic = entity.outside_window_pic.toLowerCase();
+        }	
+
+        let framewindowpic = '/hacsfiles/pic-shutter-card/frame_window.png';
+        if (entity && entity.frame_window_pic) {
+          framewindowpic = entity.frame_window_pic.toLowerCase();
+        }		
+        
+        let shutterslidepic = '/hacsfiles/pic-shutter-card/sc_shutter_slide.png';
+        if (entity && entity.shutter_slide_pic) {
+          shutterslidepic = entity.shutter_slide_pic.toLowerCase();
+        }		
+        
+        let shutterbottompic = '/hacsfiles/pic-shutter-card/sc_shutter_bottom.png';
+        if (entity && entity.shutter_bottom_pic) {
+          shutterbottompic = entity.shutter_bottom_pic.toLowerCase();
+        }
+        
+		let shutterminposition = 17;    
+        if (entity && entity.shutter_min_position) {
+          shutterminposition = parseInt(entity.shutter_min_position);
+        }
+		
+		let shuttermaxposition = 142;    
+        if (entity && entity.shutter_max_position) {
+          shuttermaxposition = parseInt(entity.shutter_max_position);
+        }
+		
+   //     _this.minPosition = shutterminposition;
+   //     _this.maxPosition = shuttermaxposition;
+        _this.setConfig(_this.config, shutterminposition, shuttermaxposition);
+		
         let shutter = document.createElement('div');
 
         shutter.className = 'sc-shutter';
         shutter.dataset.shutter = entityId;
         shutter.innerHTML = `
-          <div class="sc-shutter-top" ` + (titlePosition == 'bottom' ? 'style="display:none;"' : '') + `>
+		  <div class="sc-shutter-top" ` + (titlePosition == 'bottom' ? 'style="display:none;"' : '') + `>
             <div class="sc-shutter-label">
             
             </div>
@@ -56,15 +91,15 @@ class ShutterCard extends HTMLElement {
             </div>
           </div>
           <div class="sc-shutter-middle" style="flex-direction: ` + (buttonsPosition == 'right' ? 'row-reverse': 'row') + `;">
-            <div class="sc-shutter-buttons">
+            <div class="sc-shutter-buttons"` + (buttonsPosition == 'not show' ? ' style="display: none;"': '') + `>
               <ha-icon-button class="sc-shutter-button" data-command="up"><ha-icon icon="mdi:arrow-up"></ha-icon></ha-icon-button><br>
               <ha-icon-button class="sc-shutter-button" data-command="stop"><ha-icon icon="mdi:stop"></ha-icon></ha-icon-button><br>
               <ha-icon-button class="sc-shutter-button" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
-              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="/hacsfiles/pic-shutter-card/outside_window.png"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="/hacsfiles/pic-shutter-card/frame_window.png">
-                <div class="sc-shutter-selector-slide"></div>
-                <div class="sc-shutter-selector-picker"></div>
+              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `">
+                <div class="sc-shutter-selector-slide" style="background-image: url(` + shutterslidepic + `); top: ` + _this.minPosition + `px;"></div>
+                <div class="sc-shutter-selector-picker" style="background-image: url(` + shutterbottompic + `); top: ` + _this.minPosition + `px;"></div>
               </div>
             </div>
           </div>
@@ -166,33 +201,33 @@ class ShutterCard extends HTMLElement {
       
         allShutters.appendChild(shutter);
       });
-      
-      
+     
+
+	  
       const style = document.createElement('style');
       style.textContent = `
-        .sc-shutters { padding: 16px; }
-          .sc-shutter { margin-top: 1rem; overflow: hidden; }
-          .sc-shutter:first-child { margin-top: 0; }
-          .sc-shutter-middle { display: flex; width: 210px; margin: auto; }
-            .sc-shutter-buttons { flex: 1; text-align: center; margin-top: 0.4rem; }
-            .sc-shutter-selector { flex: 1; }
-              .sc-shutter-selector-picture { position: relative; margin: auto; background-size: cover; min-height: 150px; max-height: 100%; width: 153px; }
-              .frame-window { position: relative;}
-              .sc-shutter-outside-window {position: absolute; left: 5px; top: 9px; width: 92%;}
-              .sc-shutter-selector-slide { position: absolute; top: 19px; left: 9px; width: 88%; height: 0; }
-                .sc-shutter-selector-slide { background-image: url(/hacsfiles/pic-shutter-card/sc_shutter_slide.png); }
-              .sc-shutter-selector-picker { position: absolute; top: 19px; left: 9px; width: 88%; cursor: pointer; height: 20px; background-repeat: no-repeat; }
-                .sc-shutter-selector-picker { background-image: url(/hacsfiles/pic-shutter-card/sc_shutter_bottom.png); }
-          .sc-shutter-top { text-align: center; margin-bottom: 1rem; }
-          .sc-shutter-bottom { text-align: center; margin-top: 1rem; }
-            .sc-shutter-label { display: inline-block; font-size: 20px; vertical-align: middle; }
-            .sc-shutter-position { display: inline-block; vertical-align: middle; padding: 0 6px; margin-left: 1rem; border-radius: 2px; background-color: var(--secondary-background-color); }
+	.sc-shutter { margin-top: 1rem; overflow: hidden; width: 100%;}
+    .sc-shutter:first-child { margin-top: 0; }
+    .sc-shutter-middle { display: flex; margin: 5px 5px; width: 93%;}
+    .sc-shutter-buttons { text-align: center; margin-top: 0.5rem; width: 25%; min-width: 40px;}
+    .sc-shutter-selector-picture { position: relative; margin: auto; background-size: cover; min-height: 150px; max-height: 100%; width: auto; }
+    .frame-window { position: relative; width: 100%; height: 155px;}
+    .sc-shutter-outside-window {position: absolute; left: 4%; top: 9px; height: 140px; width: 92%;}
+    .sc-shutter-selector-slide { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 90%; height: 0; }
+    .sc-shutter-selector-picker { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 90%; cursor: pointer; height: 20px; background-repeat: no-repeat; background-size: 100% 8px;}
+    .sc-shutter-top { text-align: center; margin-top: 5px; }
+    .sc-shutter-bottom { text-align: center; margin-bottom: 5px; }
+    .sc-shutter-label { display: inline-block; font-size: 20px; vertical-align: middle; }
+    .sc-shutter-position { display: inline-block; vertical-align: middle; padding: 0 6px; margin-left: 1rem; border-radius: 2px; background-color: var(--secondary-background-color); }
       `;
-    
+    		
       this.card.appendChild(allShutters);
       this.appendChild(style);
+	  //                                   --------------------------------
+  //    this.minPosition = _this.minPosition;
+	  
     }
-    
+    	
     //Update the shutters UI
     entities.forEach(function(entity) {
       let entityId = entity;
@@ -211,7 +246,7 @@ class ShutterCard extends HTMLElement {
         
       const state = hass.states[entityId];
       const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
-      const currentPosition = state ? state.attributes.current_position : 'unknown';
+      const currentPosition = state ? state.attributes.current_position : '100';
       
       shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
           shutterLabel.innerHTML = friendlyName;
@@ -228,7 +263,9 @@ class ShutterCard extends HTMLElement {
           _this.setPickerPositionPercentage(100 - currentPosition, picker, slide);
         }
       }
+	  	
     });
+
   }
   
   getPictureTop(picture) {
@@ -257,7 +294,7 @@ class ShutterCard extends HTMLElement {
   
     if (position > this.maxPosition)
       position = this.maxPosition;
-  
+
     picker.style.top = position + 'px';
     slide.style.height = position - this.minPosition + 'px';
   }
@@ -271,14 +308,17 @@ class ShutterCard extends HTMLElement {
     });
   }
 
-  setConfig(config) {
+  setConfig(config, mmin, mmax) {
     if (!config.entities) {
       throw new Error('You need to define entities');
     }
     
     this.config = config;
-    this.maxPosition = 137;
-    this.minPosition = 19;
+  //  this.maxPosition = 142;
+  //  this.minPosition = 7;
+    this.maxPosition = mmax;
+    this.minPosition = mmin;
+
     this.isUpdating = false;
   }
 
