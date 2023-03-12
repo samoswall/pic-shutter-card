@@ -8,15 +8,15 @@
 
 1 sample
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/v1.0.0/Image/2pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/pic_v1_1_0.png)
 
 2 sample
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/v1.0.0/Image/1pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/1pic.png)
 
 3 sample
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/v1.0.0/Image/3pic.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/3pic.png)
 
 ## Install
 
@@ -39,7 +39,7 @@ If you don't use HACS, you can download js file from [latest releases](https://g
 | ---- | ---- | -------- | ------- | -----------
 | entity | string | True | - | The shutter entity ID
 | name | string | False | _Friendly name of the entity_ | Name to display for the shutter
-| buttons_position | string | False | `left` | Set buttons on `left` or on `right` of the shutter
+| buttons_position | string | False | `left` | Set buttons on `left` or on `right` of the shutter or `not show` to disable visibility
 | title_position | string | False | `top` | Set title on `top` or on `bottom` of the shutter
 | outside_window | string | False | `not show` | Set it to `show` for visibility of the background picture outside the window
 | invert_percentage | boolean | False | `false` | Set it to `true` if your shutter is 100% when it is closed, and 0% when it is opened
@@ -47,6 +47,8 @@ If you don't use HACS, you can download js file from [latest releases](https://g
 | frame_window_pic | string | False | `/local/community/pic-shutter-card/frame_window.png` | Window frame picture file
 | shutter_slide_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_slide.png` | Image file of the roller shutter canvas
 | shutter_bottom_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Image file of the roller shutter bottom
+| shutter_min_position | int | False | 17 | Indent from the top edge of the window to the beginning of the shutter in pixels
+| shutter_max_position | int | False | 142 | Shutter height in pixels
 
 
 _Remark : you can also just give the entity ID (without to specify `entity:`) if you don't need to specify the other configurations._
