@@ -70,6 +70,37 @@ entities:
     shutter_bottom_pic: /local/community/pic-shutter-card/my_shutter_bottom.png
 ```
 
+### Example 3 windows horizontally
+```yaml
+type: horizontal-stack
+title: Балкон
+cards:
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.left_living_shutter
+    name: ' '
+    buttons_position: left
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin1.png
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.left_living_shutter
+    name: ' '
+    buttons_position: right
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin2.png
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.left_living_shutter
+    name: ' '
+    buttons_position: left
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin3.png
+```
+
 ## Modification
 
 There are 4 files in the folder where `hass-shutter-card` is installed:
