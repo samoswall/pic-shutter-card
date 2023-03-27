@@ -13,10 +13,11 @@
 2 sample
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/1pic.png)
-
-3 sample
-
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/3pic.png)
+
+Added motion animation
+ 
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/animationmove.gif)
 
 ## Install
 
@@ -49,7 +50,7 @@ If you don't use HACS, you can download js file from [latest releases](https://g
 | shutter_bottom_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Image file of the roller shutter bottom
 | shutter_min_position | int | False | 17 | Indent from the top edge of the window to the beginning of the shutter in pixels
 | shutter_max_position | int | False | 142 | Shutter height in pixels
-
+| shutter_animation | string | False | `show` | Set it to `show` to display animated arrows, any other value disables animation
 
 _Remark : you can also just give the entity ID (without to specify `entity:`) if you don't need to specify the other configurations._
 
