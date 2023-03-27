@@ -100,6 +100,16 @@ class ShutterCard extends HTMLElement {
               <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `">
                 <div class="sc-shutter-selector-slide" style="background-image: url(` + shutterslidepic + `); top: ` + _this.minPosition + `px;"></div>
                 <div class="sc-shutter-selector-picker" style="background-image: url(` + shutterbottompic + `); top: ` + _this.minPosition + `px;"></div>
+				<div class="container_down" style="display: none;">
+                  <div class="chevron_down"></div>
+                  <div class="chevron_down"></div>
+                  <div class="chevron_down"></div>
+                </div>
+				<div class="container_up" style="display: none;">
+                  <div class="chevron_up"></div>
+                  <div class="chevron_up"></div>
+                  <div class="chevron_up"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -208,7 +218,7 @@ class ShutterCard extends HTMLElement {
       style.textContent = `
 	.sc-shutter { margin-top: 1rem; overflow: hidden; width: 100%;}
     .sc-shutter:first-child { margin-top: 0; }
-    .sc-shutter-middle { display: flex; margin: 5px 5px; width: 93%;}
+    .sc-shutter-middle { display: flex; margin: 5px 5px; width: 93%; justify-content: center;}
     .sc-shutter-buttons { text-align: center; margin-top: 0.5rem; width: 25%; min-width: 40px;}
     .sc-shutter-selector-picture { position: relative; margin: auto; background-size: cover; min-height: 150px; max-height: 100%; width: auto; }
     .frame-window { position: relative; width: 100%; height: 155px;}
@@ -219,6 +229,123 @@ class ShutterCard extends HTMLElement {
     .sc-shutter-bottom { text-align: center; margin-bottom: 5px; }
     .sc-shutter-label { display: inline-block; font-size: 20px; vertical-align: middle; }
     .sc-shutter-position { display: inline-block; vertical-align: middle; padding: 0 6px; margin-left: 1rem; border-radius: 2px; background-color: var(--secondary-background-color); }
+.container_up,
+.container_down {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.chevron_down {
+  position: absolute;
+  width: 2.1rem;
+  height: 0.48rem;
+  opacity: 0;
+  transform: scale(0.3);
+  animation: move-chevron-down 3s ease-out infinite;
+}
+
+.chevron_down:first-child {
+  animation: move-chevron-down 3s ease-out 1s infinite;
+}
+
+.chevron_down:nth-child(2) {
+  animation: move-chevron-down 3s ease-out 2s infinite;
+}
+
+.chevron_up {
+  position: absolute;
+  width: 2.1rem;
+  height: 0.48rem;
+  opacity: 0;
+  transform: scale(0.3);
+  animation: move-chevron-up 3s ease-out infinite;
+}
+
+.chevron_up:first-child {
+  animation: move-chevron-up 3s ease-out 1s infinite;
+}
+
+.chevron_up:nth-child(2) {
+  animation: move-chevron-up 3s ease-out 2s infinite;
+}
+
+.chevron_up:before,
+.chevron_up:after,
+.chevron_down:before,
+.chevron_down:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: var(--paper-item-icon-color, #44739e);
+}
+
+.chevron_down:before {
+  left: 0;
+  transform: skewY(30deg);
+}
+
+.chevron_down:after {
+  right: 0;
+  width: 50%;
+  transform: skewY(-30deg);
+}
+
+.chevron_up:before {
+  left: 0;
+  transform: skewY(-30deg);
+}
+
+.chevron_up:after {
+  right: 0;
+  width: 50%;
+  transform: skewY(30deg);
+}
+
+@keyframes move-chevron-down {
+ 25% {
+   opacity: 1;
+ }
+ 33.3% {
+   opacity: 1;
+   transform: translateY(2.28rem);
+ }
+ 66.6% {
+   opacity: 1;
+   transform: translateY(3.12rem);
+ }
+ 100% {
+   opacity: 0;
+   transform: translateY(4.8rem) scale(0.5);
+ }
+}
+
+@keyframes move-chevron-up {
+ 100% {
+   opacity: 0;
+ }
+ 66.6% {
+   opacity: 1;
+   transform: translateY(2.28rem);
+ }
+ 33.3% {
+   opacity: 1;
+   transform: translateY(3.12rem);
+ }
+ 25% {
+   opacity: 1; 
+ }
+ 1% {
+   opacity: 0; 
+   transform: translateY(4.8rem) scale(0.5);
+ }
+}
       `;
     		
       this.card.appendChild(allShutters);
@@ -239,6 +366,10 @@ class ShutterCard extends HTMLElement {
       if (entity && entity.invert_percentage) {
         invertPercentage = entity.invert_percentage;
       }
+      let shutteranimation = 'show';
+      if (entity && entity.shutter_animation) {
+        shutteranimation = entity.shutter_animation;
+      }  
         
       const shutter = _this.card.querySelector('div[data-shutter="' + entityId +'"]');
       const slide = shutter.querySelector('.sc-shutter-selector-slide');
@@ -247,7 +378,7 @@ class ShutterCard extends HTMLElement {
       const state = hass.states[entityId];
       const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
       const currentPosition = state ? state.attributes.current_position : '100';
-      
+      const movementState = state? state.state : 'unknown';
       shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
           shutterLabel.innerHTML = friendlyName;
       })
@@ -262,12 +393,33 @@ class ShutterCard extends HTMLElement {
         } else {
           _this.setPickerPositionPercentage(100 - currentPosition, picker, slide);
         }
+		if (shutteranimation == 'show') { _this.setMovement(movementState, shutter);  }
       }
 	  	
     });
 
   }
   
+    setMovement(movement, shutter) {
+    if (movement == "opening" || movement == "closing") {
+      let opening = movement == "opening"
+      
+      shutter.querySelectorAll(".container_up").forEach(
+        (overlay) => overlay.style.display = opening?"flex":"none"
+      )
+      shutter.querySelectorAll(".container_down").forEach(
+        (overlay) => overlay.style.display = opening?"none":"flex"
+      )
+    }
+    else {
+      shutter.querySelectorAll(".container_up").forEach(
+        (overlay) => overlay.style.display = "none"
+      )
+	  shutter.querySelectorAll(".container_down").forEach(
+        (overlay) => overlay.style.display = "none"
+      )
+    }
+  }  
   getPictureTop(picture) {
       let pictureBox = picture.getBoundingClientRect();
       let body = document.body;
