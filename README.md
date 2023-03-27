@@ -15,7 +15,7 @@
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/1pic.png)
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/3pic.png)
 
-Added motion animation
+Added the display of animated arrows for the movement of curtains, the state of which can take the values of closing and opening
  
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/animationmove.gif)
 
