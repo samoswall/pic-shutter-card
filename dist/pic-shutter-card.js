@@ -223,7 +223,7 @@ class ShutterCard extends HTMLElement {
     .sc-shutter-selector-picture { position: relative; margin: auto; background-size: cover; min-height: 150px; max-height: 100%; width: auto; }
     .frame-window { position: relative; width: 100%; height: 155px;}
     .sc-shutter-outside-window {position: absolute; left: 4%; top: 9px; height: 140px; width: 92%;}
-    .sc-shutter-selector-slide { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 90%; height: 0; }
+    .sc-shutter-selector-slide { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 90%; height: 0; background-position: center bottom;}
     .sc-shutter-selector-picker { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 90%; cursor: pointer; height: 20px; background-repeat: no-repeat; background-size: 100% 8px;}
     .sc-shutter-top { text-align: center; margin-top: 5px; }
     .sc-shutter-bottom { text-align: center; margin-bottom: 5px; }
