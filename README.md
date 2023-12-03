@@ -1,177 +1,291 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
-[![Donate](https://img.shields.io/badge/donate-Yandex-red.svg)](https://yoomoney.ru/fundraise/b8GYBARCVRE.230309)
 # pic-shutter-card
-**Shutter card for Home Assistant Lovelace UI**
+[![EN](https://img.shields.io/badge/lang-EN-green.svg)](/README.md)
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
+![](https://img.shields.io/github/watchers/samoswall/pic-shutter-card.svg)
+![](https://img.shields.io/github/stars/samoswall/pic-shutter-card.svg)
 
-**This card allows to open, close or set a shutter to the opening rate you want and also customize the window view with blinds using your images.**
+[![Donate](https://img.shields.io/badge/donate-Yandex-red.svg)](https://yoomoney.ru/fundraise/b8GYBARCVRE.230309)
 
-1 sample
+**Карточка штор для Lovelace UI Home Assistant**
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample.gif)
+**Карточка отображает текущее положение шторы, позволяет управлять её положением и имеет пользовательские настройки для устоновки произвольных изображений окна, вида за окном и полотна шторы.**
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/pic_v1_1_0.png)
+## Содержание
+- [Добавление репозитория](#A1)
+- [Установка](#A2)
+- [Конфигурация](#A3)
+- [Описание файлов изображений](#A4)
+- [Примеры кода карточки](#A5)
+- [Благодарности](#A6)
+- [Пожертвования](#A7)
+  
+<a id="A1"></a>
+## Добавление репозитория
 
-2 sample
+В разделе HACS в меню, расположенном в правом верхнем углу, выбираем пункт: **Пользовательские репозитории**.
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/1pic.png)
-![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/3pic.png)
+Вводим адрес репозитория: `https://github.com/samoswall/pic-shutter-card`, выбираем категорию **Lovelace**,  нажимаем кнопку **Добавить**.
 
-Added the display of animated arrows for the movement of curtains, the state of which can take the values of closing and opening
- 
-![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/animationmove.gif)
+<a id="A2"></a>
+## Установка
 
-## Install
+В разделе HACS в поиске вводим **pic-shutter-card**, выбираем карточку, нажимаем кнопку **Скачать**.
 
-If you use HACS, the resources will automatically be configured with the needed file.
+<a id="A3"></a>
+## Конфигурация
 
-If you don't use HACS, you can download js file from [latest releases](https://github.com/samoswall/pic-shutter-card/releases). Drop it then in `www` folder in your `config` directory. 
+### Главное
 
-## Configuration
+| Имя   | Тип    | Важность параметра | Значение по умолчанию | Описание
+| ----  | ----   | --------           | -------               | -----------
+| type  | string | Обязательно        | -                     | Должно быть "custom:pic-shutter-card"
+| title | string | Не обязательно     | -                     | Название карточки. Отображается в верхнем правом углу.
 
-### General
+### Параметры
 
-| Name | Type | Required | Default | Description
-| ---- | ---- | -------- | ------- | -----------
-| type | string | True | - | Must be "custom:pic-shutter-card"
-| title | string | False | - | Title of the card
+| Имя                  | Тип     | Важность параметра | Значение по умолчанию         | Описание
+| ----                 | ----    | ---------------    | -------                       | -----------
+| entity               | string  | Обязательно        | -                             | Идентификатор сущности
+| name                 | string  | Не обязательно     | Friendly name of the entity   | Отображаемое имя шторы
+| buttons_position     | string  | Не обязательно     | `left`                        | Местоположение кнопок управления: слева - `left` , справа - `right` от окна или не показывать - `not show`
+| title_position       | string  | Не обязательно     | `top`                         | Местоположение имени шторы и процента открытия: сверху - `top` , снизу - `bottom`
+| outside_window       | string  | Не обязательно     | `not show`                    | Отображение картинки вида за окном: показывать - `show` , не показывать - любое другое значение
+| invert_percentage    | boolean | Не обязательно     | `false`                       | Инверсия положения шторы. Установите `true` если 100% - штора закрыта и 0% when it is opened
+| outside_window_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/outside_window.png`    | Файл изображения вида за окном. Загружены с карточкой: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
+| frame_window_pic     | string  | Не обязательно     | `/local/community/pic-shutter-card/frame_window.png`      | Файл изображения рамы окна. Загружены с карточкой: `frame_window.png` `frame_win1.png` `frame_win2.png`
+| shutter_slide_pic    | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | Файл изображения полотна шторы. Загружены с карточкой:
+| shutter_bottom_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Файл изображения нижней планки у рулонных штор. Загружен с карточкой:
+| shutter_min_position | int     | Не обязательно     | 4                            | Минимальное положение шторы. (в открытом положении)
+| shutter_max_position | int     | Не обязательно     | 127                          | Максимальное положение шторы. (в закрытом положении)
+| shutter_heigth       | int     | Не обязательно     | 140                          | Высота шторы. Используется только для штор, у которых направление открытия влево и/или вправо.
+| shutter_direction    | string  | Не обязательно     | `up`                         | Направление открытия шторы: вверх - `up` , влево - `left` , вправо - `right` , влево и вправо одновременно - `leftright`
+| shutter_top          | int     | Не обязательно     | 17                           | Отступ от верхнего края окна до полотна шторы. Значение в пикселях. (высота окна 141 пиксель)
+| shutter_animation    | string  | Не обязательно     | `show`                       | Отображение анимации направления движения: показывать - `show` , не показывать - любое другое значение
 
-### Entities
+<a id="A4"></a>
+## Описание файлов изображений
 
-| Name | Type | Required | Default | Description
-| ---- | ---- | -------- | ------- | -----------
-| entity | string | True | - | The shutter entity ID
-| name | string | False | _Friendly name of the entity_ | Name to display for the shutter
-| buttons_position | string | False | `left` | Set buttons on `left` or on `right` of the shutter or `not show` to disable visibility
-| title_position | string | False | `top` | Set title on `top` or on `bottom` of the shutter
-| outside_window | string | False | `not show` | Set it to `show` for visibility of the background picture outside the window
-| invert_percentage | boolean | False | `false` | Set it to `true` if your shutter is 100% when it is closed, and 0% when it is opened
-| outside_window_pic | string | False | `/local/community/pic-shutter-card/outside_window.png` | Image file outside the window. Uploaded in the card: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
-| frame_window_pic | string | False | `/local/community/pic-shutter-card/frame_window.png` | Window frame picture file. Uploaded in the card: `frame_window.png` `frame_win1.png` `frame_win2.png`
-| shutter_slide_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_slide.png` | Image file of the roller shutter canvas
-| shutter_bottom_pic | string | False | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Image file of the roller shutter bottom
-| shutter_min_position | int | False | 17 | Indent from the top edge of the window to the beginning of the shutter in pixels
-| shutter_max_position | int | False | 142 | Shutter height in pixels
-| shutter_animation | string | False | `show` | Set it to `show` to display animated arrows, any other value disables animation
+В папке карточки `pic-shutter-card` уже имеются некоторые изображения:
 
-_Remark : you can also just give the entity ID (without to specify `entity:`) if you don't need to specify the other configurations._
+| Файл                  | Описание                                                                     | Размер изображения
+| ----                  | -----------                                                                  | -----------
+| frame_window.png      | Рама окна вариант 1 (вертикальные жалюзи)                                    | (153px х 151px)
+| frame_win1.png        | Рама окна вариант 2 (белая рама с подоконником)                              | (153px х 151px)
+| frame_win1_2.png      | Рама окна вариант 2 c гардиной для полотна шторы art4.png                    | (153px х 151px)
+| frame_win2.png        | Рама окна вариант 3 (коричневая рама)                                        | (153px х 151px)
+| outside_window.png    | Изображение вида за окном вариант 1 (Москва Сити)                            | (153px х 151px)
+| outside_window1.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 1)        | (153px х 151px)
+| outside_window2.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 2)        | (153px х 151px)
+| outside_window3.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 3)        | (153px х 151px)
+| outside_window4.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 4)        | (153px х 151px)
+| outside_window5.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 5)        | (153px х 151px)
+| outwin1.png           | Изображение вида за окном вариант 3 (Природа)                                | (153px х 151px)
+| outwin2.png           | Изображение вида за окном вариант 4 (Лес)                                    | (153px х 151px)
+| outwin3.png           | Изображение вида за окном вариант 5 (Озеро)                                  | (153px х 151px)
+| art.png               | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (100px х 150px)
+| art1.png              | Изображение полотна шторы вариант 2 (Абстракция черный фон)                  | (141px х 125px)
+| art_city.png          | Изображение полотна шторы вариант 3 (Ночной город черный фон)                | (141px х 125px)
+| art3.png              | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (142px х 145px)
+| art4.png              | Изображение полотна шторы вариант 4 (Синяя штора на гардине)                 | (141px х 130px)
+| purple.png            | Изображение сиреневого полотна шторы                                         | (1px х 1px)
+| liteblue.png          | Изображение голубого полотна шторы                                           | (1px х 1px)
+| litegreen.png         | Изображение светлозеленого полотна шторы                                     | (1px х 1px)
+| sc_shutter_slide.png  | Изображение жалюзи (верхние 4 пикселя белые, нижние с прозрачным градиентом) | (1px х 6px)
+| sc_shutter_bottom.png | Изображение нижней планки у рулонных штор                                    | (137px х 7px)
 
-### Sample
+<a id="A5"></a>
+### Примеры кода карточки
 
+**Пример минимального кода карточки**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample1.png)
 ```yaml
-type: 'custom:pic-shutter-card'
-title: My shutters
+type: custom:pic-shutter-card
 entities:
-  - entity: cover.left_living_shutter
-    name: Left shutter
-    buttons_position: left
-    title_position: bottom
-    outside_window: show
-    outside_window_pic: /local/community/pic-shutter-card/my_outside_window.png
-    frame_window_pic: /local/community/pic-shutter-card/my_frame_window.png
-    shutter_slide_pic: /local/community/pic-shutter-card/my_shutter_slide.png
-    shutter_bottom_pic: /local/community/pic-shutter-card/my_shutter_bottom.png
+- entity: cover.roll_1
 ```
 
-### Example 3 windows horizontally
+**Пример кода карточки 1**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample2.png)
 ```yaml
 type: horizontal-stack
-title: Балкон
 cards:
 - type: custom:pic-shutter-card
   entities:
-  - entity: cover.left_living_shutter
+  - entity: cover.roll_2
+    name: ' '
+    buttons_position: not show
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin1.png
+    shutter_slide_pic: /local/community/pic-shutter-card/sc_shutter_slide.png
+    shutter_animation: not show
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_2
+    name: ' '
+    buttons_position: not show
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin2.png
+    shutter_slide_pic: /local/community/pic-shutter-card/purple.png
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_2
+    name: ' '
+    buttons_position: not show
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin1.png
+    shutter_slide_pic: /local/community/pic-shutter-card/litegreen.png
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_2
+    name: ' '
+    buttons_position: not show
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin2.png
+    shutter_slide_pic: /local/community/pic-shutter-card/liteblue.png
+    shutter_animation: not show
+```
+
+**Пример кода карточки 2**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample3.png)
+```yaml
+type: horizontal-stack
+cards:
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_1
+    name: Left
+    buttons_position: left
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outside_window2.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_window.png
+    shutter_slide_pic: /local/community/pic-shutter-card/art1.png
+    shutter_bottom_pic: none
+    shutter_direction: left
+    shutter_heigth: 135
+    shutter_min_position: 5
+    shutter_max_position: 95
+    shutter_animation: show
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_1
+    name: LeftRight
+    buttons_position: left
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outside_window4.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_window.png
+    shutter_slide_pic: /local/community/pic-shutter-card/art1.png
+    shutter_bottom_pic: none
+    shutter_direction: leftright
+    shutter_heigth: 135
+    shutter_min_position: 5
+    shutter_max_position: 95
+    shutter_animation: show
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_1
+    name: Right
+    buttons_position: left
+    title_position: bottom
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outside_window5.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_window.png
+    shutter_slide_pic: /local/community/pic-shutter-card/art1.png
+    shutter_bottom_pic: none
+    shutter_direction: right
+    shutter_heigth: 135
+    shutter_min_position: 5
+    shutter_max_position: 95
+    shutter_animation: show
+```
+
+**Пример кода карточки 3**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample4.png)
+```yaml
+type: horizontal-stack
+cards:
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_1
+    name: Left
+    buttons_position: right
+    title_position: bottom
+    shutter_animation: show
+    shutter_min_position: 5
+    shutter_top: 4
+    shutter_max_position: 135
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outside_window.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_win1.png
+    shutter_slide_pic: /local/community/pic-shutter-card/art_city.png
+    shutter_bottom_pic: show
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_1
+    name: Right
+    buttons_position: left
+    title_position: bottom
+    shutter_animation: show
+    outside_window: show
+    outside_window_pic: /local/community/pic-shutter-card/outwin1.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_win1_2.png
+    shutter_slide_pic: /local/community/pic-shutter-card/art4.png
+    shutter_bottom_pic: none
+    shutter_top: -1
+    shutter_heigth: 159
+    shutter_direction: leftright
+    shutter_min_position: -1
+    shutter_max_position: 100
+```
+
+**Пример кода карточки 4**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample5.png)
+```yaml
+type: horizontal-stack
+cards:
+- type: custom:pic-shutter-card
+  entities:
+  - entity: cover.roll_2
     name: ' '
     buttons_position: left
     title_position: bottom
     outside_window: show
-    outside_window_pic: /local/community/pic-shutter-card/outwin1.png
+    outside_window_pic: /local/community/pic-shutter-card/outside_window.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_win1.png
+    shutter_min_position: 3
+    shutter_top: 5
+    shutter_max_position: 137
 - type: custom:pic-shutter-card
   entities:
-  - entity: cover.left_living_shutter
+  - entity: cover.roll_2
     name: ' '
     buttons_position: right
     title_position: bottom
     outside_window: show
-    outside_window_pic: /local/community/pic-shutter-card/outwin2.png
-- type: custom:pic-shutter-card
-  entities:
-  - entity: cover.left_living_shutter
-    name: ' '
-    buttons_position: left
-    title_position: bottom
-    outside_window: show
-    outside_window_pic: /local/community/pic-shutter-card/outwin3.png
+    outside_window_pic: /local/community/pic-shutter-card/outside_window.png
+    frame_window_pic: /local/community/pic-shutter-card/frame_win2.png
+    shutter_min_position: 3
+    shutter_top: 5
+    shutter_max_position: 142
 ```
+<a id="A6"></a>
+## Благодарности
 
-## Modification
+Эта карточка является модернизацией карточки [hass-shutter-card](https://github.com/Deejayfool/hass-shutter-card).
+Спасибо автору [Deejayfool](https://github.com/Deejayfool).
 
-There are 4 files in the folder where `hass-shutter-card` is installed:
-
-| File | Description
-| ---- | -----------
-| frame_window.png | window frame (transparent background in the center)
-| outside_window.png | view outside the window
-| sc_shutter_bottom.png | lower stick on the curtain cloth
-| sc_shutter_slide.png | the picture from which the curtain canvas is built by repetition (the picture has a size of 1x6 pin (the upper 4 are white, the lower ones have a gradient in transparency). If you make a picture of 1x20 pix, where the top 10 pix are filled with color, and the bottom 10 pix are transparent, then you get a day-night curtain)
-
-You can replace the pictures to get a new design (3 sample).
-
-Additionally, you can edit using the Home Assistant.
-Insert the CSS code in the card code below to redefine the card style.
-
-(If it doesn't work, then install an additional card-mod extension.
-In HACS in the User Interface, find in the search and install.
-Repository - https://github.com/thomasloven/lovelace-card-mod ).
-
-If you are not going to redefine something, then do not insert lines to change the properties of the CSS class.
-Example:
-```yaml
-.sc-shutter-label {                               # Class name
-font-size: 15px !IMPORTANT;                       # Font size change string
-}                                                 # Closing parenthesis 
-```
-
-## css code for changing the card:
-
-```yaml
-style: |
-  ha-card {
-    font-size: 15px !IMPORTANT;                   # Font size for the value %
-  }
-  .sc-shutter-label {
-    font-size: 15px !IMPORTANT;                   # Font size for the name of the curtain
-  }
-  .card-header {
-    font-size: 20px !IMPORTANT;                   # Font size for the card name
-    line-height: 20px !IMPORTANT;                 # The height of the line for the card name
-    text-align: center !IMPORTANT;                # Alignment of the card name: left center right
-  }
-  .sc-shutter-selector-slide {
-    width: 82% !IMPORTANT;                        # Width of the curtain cloth
-    background-color: rgba(117, 76, 191, 0.9);    # Canvas fill color with transparency
-    background-image: none !IMPORTANT;            # Disabling the picture for the canvas, a colored background is displayed
-  }
-  .sc-shutter-outside-window {
-    width: 88% !IMPORTANT;                        # Width of the view image outside the window
-    height: 90% !IMPORTANT;                       # The height of the picture of the view outside the window
-  }
-  .sc-shutter-selector-picker {
-    width: 82% !IMPORTANT;                        # The width of the picture of the lower shelf on the curtain canvas
-    background-size: 100% 6px;                    # For stretching the bottom stick, not cropping, when changing the width.
-  }                                               # If you changed the height of the stick image, then change 6px to your height
-  .frame-window {
-    width: 100px !IMPORTANT;                      # Width of the window frame picture
-    height: 150px;                                # The height of the picture of the window frame. Without it, it scales, not shrinks
-  }
-  .sc-shutter-selector-picture {
-    width: 100px !IMPORTANT;                      # The width of the entire window, from which % of the stick, canvas and view outside the window is considered
-  }
-  .sc-shutter-middle {
-    width: 155px !IMPORTANT;                      # The width of the window with control buttons. Equal to the sum of their width
-  }
-```
-
-## Credits
-
-This card is a modification [hass-shutter-card](https://github.com/Deejayfool/hass-shutter-card).
-Thanks to the author of [Deejayfool](https://github.com/Deejayfool).
-
+<a id="A7"></a>
+## Пожертвования
+Вы можете поддержать этот или другие проекты.
+[![Donate](https://img.shields.io/badge/donate-Yandex-red.svg)](https://yoomoney.ru/fundraise/b8GYBARCVRE.230309)
