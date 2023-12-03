@@ -1,5 +1,5 @@
 # pic-shutter-card
-[![EN](https://img.shields.io/badge/lang-EN-green.svg)](/README.md)
+[![EN](https://img.shields.io/badge/lang-EN-green.svg)](/README.en.md)
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 ![](https://img.shields.io/github/watchers/samoswall/pic-shutter-card.svg)
