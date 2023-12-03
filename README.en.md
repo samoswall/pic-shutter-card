@@ -7,97 +7,97 @@
 
 [![Donate](https://img.shields.io/badge/donate-Yandex-red.svg)](https://yoomoney.ru/fundraise/b8GYBARCVRE.230309)
 
-**Карточка штор для Lovelace UI Home Assistant**
+**Curtain Card for Lovelace UI Home Assistant**
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample.gif)
-**Карточка отображает текущее положение шторы, позволяет управлять её положением и имеет пользовательские настройки для устоновки произвольных изображений окна, вида за окном и полотна шторы.**
+**The card displays the current position of the curtain, allows you to control its position and has user settings for adjusting arbitrary images of the window, the view outside the window and the curtain canvas.**
 
-## Содержание
-- [Добавление репозитория](#A1)
-- [Установка](#A2)
-- [Конфигурация](#A3)
-- [Описание файлов изображений](#A4)
-- [Примеры кода карточки](#A5)
-- [Благодарности](#A6)
-- [Пожертвования](#A7)
-  
+## Content
+- [Adding a repository](#A1)
+- [Installation](#A2)
+- [Configuration](#A3)
+- [Description of image files](#A4)
+- [Sample Card code](#A5)
+- [Thanks](#A6)
+- [Donations](#A7)
+
 <a id="A1"></a>
-## Добавление репозитория
+## Adding a repository
 
-В разделе HACS в меню, расположенном в правом верхнем углу, выбираем пункт: **Пользовательские репозитории**.
+In the HACKS section, in the menu located in the upper right corner, select the item: **User repositories**.
 
-Вводим адрес репозитория: `https://github.com/samoswall/pic-shutter-card`, выбираем категорию **Lovelace**,  нажимаем кнопку **Добавить**.
+Enter the repository address: `https://github.com/samoswall/pic-shutter-card `, select the category **Lovelace**, click the **Add** button.
 
 <a id="A2"></a>
-## Установка
+## Installation
 
-В разделе HACS в поиске вводим **pic-shutter-card**, выбираем карточку, нажимаем кнопку **Скачать**.
+In the HACS section in the search, enter **pic-shutter-card**, select the card, click the **Download** button.
 
 <a id="A3"></a>
-## Конфигурация
+## Configuration
 
-### Главное
+### General
 
-| Имя   | Тип    | Важность параметра | Значение по умолчанию | Описание
-| ----  | ----   | --------           | -------               | -----------
-| type  | string | Обязательно        | -                     | Должно быть "custom:pic-shutter-card"
-| title | string | Не обязательно     | -                     | Название карточки. Отображается в верхнем правом углу.
+| Name | Type    | Required | Default value | Description
+| ---- | ----    | -------- | -------       | -----------
+| type | string  | true     | -             | Must be "custom:pic-shutter-card"
+| title | string | false    | -             | The name of the card. It is displayed in the upper right corner.
 
 ### Параметры
 
-| Имя                  | Тип     | Важность параметра | Значение по умолчанию         | Описание
+| Name | Type | Required | Default value | Description
 | ----                 | ----    | ---------------    | -------                       | -----------
-| entity               | string  | Обязательно        | -                             | Идентификатор сущности
-| name                 | string  | Не обязательно     | Friendly name of the entity   | Отображаемое имя шторы
-| buttons_position     | string  | Не обязательно     | `left`                        | Местоположение кнопок управления: слева - `left` , справа - `right` от окна или не показывать - `not show`
-| title_position       | string  | Не обязательно     | `top`                         | Местоположение имени шторы и процента открытия: сверху - `top` , снизу - `bottom`
-| outside_window       | string  | Не обязательно     | `not show`                    | Отображение картинки вида за окном: показывать - `show` , не показывать - любое другое значение
-| invert_percentage    | boolean | Не обязательно     | `false`                       | Инверсия положения шторы. Установите `true` если 100% - штора закрыта и 0% when it is opened
-| outside_window_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/outside_window.png`    | Файл изображения вида за окном. Загружены с карточкой: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
-| frame_window_pic     | string  | Не обязательно     | `/local/community/pic-shutter-card/frame_window.png`      | Файл изображения рамы окна. Загружены с карточкой: `frame_window.png` `frame_win1.png` `frame_win2.png`
-| shutter_slide_pic    | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | Файл изображения полотна шторы. Загружены с карточкой:
-| shutter_bottom_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Файл изображения нижней планки у рулонных штор. Загружен с карточкой:
-| shutter_min_position | int     | Не обязательно     | 4                            | Минимальное положение шторы. (в открытом положении)
-| shutter_max_position | int     | Не обязательно     | 127                          | Максимальное положение шторы. (в закрытом положении)
-| shutter_heigth       | int     | Не обязательно     | 140                          | Высота шторы. Используется только для штор, у которых направление открытия влево и/или вправо.
-| shutter_direction    | string  | Не обязательно     | `up`                         | Направление открытия шторы: вверх - `up` , влево - `left` , вправо - `right` , влево и вправо одновременно - `leftright`
-| shutter_top          | int     | Не обязательно     | 17                           | Отступ от верхнего края окна до полотна шторы. Значение в пикселях. (высота окна 141 пиксель)
-| shutter_animation    | string  | Не обязательно     | `show`                       | Отображение анимации направления движения: показывать - `show` , не показывать - любое другое значение
+| entity               | string  | true               | -                             | The shutter entity ID
+| name                 | string  | false              | Friendly name of the entity   | Name to display for the shutter
+| buttons_position     | string  | false              | `left`                        | Set buttons on `left` or on `right` of the shutter or `not show` to disable visibility
+| title_position       | string  | false              | `top`                         | Set title on `top` or on `bottom` of the shutter
+| outside_window       | string  | false              | `not show`                    | Set it to `show` for visibility of the background picture outside the window
+| invert_percentage    | boolean | false              | `false`                       | Set it to `true` if your shutter is 100% when it is closed, and 0% when it is opened
+| outside_window_pic   | string  | false              | `/local/community/pic-shutter-card/outside_window.png`    | The image file of the view outside the window. Uploaded with a card: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
+| frame_window_pic     | string  | false              | `/local/community/pic-shutter-card/frame_window.png`      | The image file of the window frame. Uploaded with a card: `frame_window.png` `frame_win1.png` `frame_win2.png`
+| shutter_slide_pic    | string  | false              | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | The image file of the curtain cloth. Uploaded with a card:
+| shutter_bottom_pic   | string  | false              | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | An image file of the bottom bar of the roller blinds. Uploaded with a card:
+| shutter_min_position | int     | false              | 4                            | The minimum position of the curtain. (in the open position)
+| shutter_max_position | int     | false              | 127                          | The maximum position of the curtain. (in the closed position)
+| shutter_heigth       | int     | false              | 140                          | The height of the curtain. It is used only for curtains with an opening direction to the left and/or right.
+| shutter_direction    | string  | false              | `up`                         | The direction of opening the curtain: up - `up`, left - `left` , right - `right` , left and right at the same time - `leftright`
+| shutter_top          | int     | false              | 17                           | The indentation from the upper edge of the window to the curtain cloth. The value in pixels. (window height 141 pixels)
+| shutter_animation    | string  | false              | `show`                       | Displaying the animation of the direction of movement: show - `show` , do not show - any other value
 
 <a id="A4"></a>
-## Описание файлов изображений
+### Description of image files
 
-В папке карточки `pic-shutter-card` уже имеются некоторые изображения:
+There are already some images in the `pic-shutter-card` folder:
 
-| Файл                  | Описание                                                                     | Размер изображения
-| ----                  | -----------                                                                  | -----------
-| frame_window.png      | Рама окна вариант 1 (вертикальные жалюзи)                                    | (153px х 151px)
-| frame_win1.png        | Рама окна вариант 2 (белая рама с подоконником)                              | (153px х 151px)
-| frame_win1_2.png      | Рама окна вариант 2 c гардиной для полотна шторы art4.png                    | (153px х 151px)
-| frame_win2.png        | Рама окна вариант 3 (коричневая рама)                                        | (153px х 151px)
-| outside_window.png    | Изображение вида за окном вариант 1 (Москва Сити)                            | (153px х 151px)
-| outside_window1.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 1)        | (153px х 151px)
-| outside_window2.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 2)        | (153px х 151px)
-| outside_window3.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 3)        | (153px х 151px)
-| outside_window4.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 4)        | (153px х 151px)
-| outside_window5.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 5)        | (153px х 151px)
-| outwin1.png           | Изображение вида за окном вариант 3 (Природа)                                | (153px х 151px)
-| outwin2.png           | Изображение вида за окном вариант 4 (Лес)                                    | (153px х 151px)
-| outwin3.png           | Изображение вида за окном вариант 5 (Озеро)                                  | (153px х 151px)
-| art.png               | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (100px х 150px)
-| art1.png              | Изображение полотна шторы вариант 2 (Абстракция черный фон)                  | (141px х 125px)
-| art_city.png          | Изображение полотна шторы вариант 3 (Ночной город черный фон)                | (141px х 125px)
-| art3.png              | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (142px х 145px)
-| art4.png              | Изображение полотна шторы вариант 4 (Синяя штора на гардине)                 | (141px х 130px)
-| purple.png            | Изображение сиреневого полотна шторы                                         | (1px х 1px)
-| liteblue.png          | Изображение голубого полотна шторы                                           | (1px х 1px)
-| litegreen.png         | Изображение светлозеленого полотна шторы                                     | (1px х 1px)
-| sc_shutter_slide.png  | Изображение жалюзи (верхние 4 пикселя белые, нижние с прозрачным градиентом) | (1px х 6px)
-| sc_shutter_bottom.png | Изображение нижней планки у рулонных штор                                    | (137px х 7px)
+| File | Description | Image Size
+| ---- | ----------- | -----------
+| frame_window.png | Window frame option 1 (vertical blinds)                                    | (153px x 151px)
+| frame_win1.png | Window frame option 2 (white frame with window sill)                              | (153px x 151px)
+| frame_win1_2.png | Window frame option 2 with curtain cloth art4.png | (153px x 151px)
+| frame_win2.png | Window frame option 3 (brown frame)                                        | (153px x 151px)
+| outside_window.png | Image of the view outside the window option 1 (Moscow City) | (153px x 151px)
+| outside_window1.png | Image of the view outside the window option 2 (Panorama of the night city part 1) | (153px x 151px)
+| outside_window2.png | Image of the view outside the window option 2 (Panorama of the night city part 2) | (153px x 151px)
+| outside_window3.png | Image of the view outside the window option 2 (Panorama of the night city part 3) | (153px x 151px)
+| outside_window4.png | Image of the view outside the window option 2 (Panorama of the night city part 4) | (153px x 151px)
+| outside_window5.png | Image of the view outside the window option 2 (Panorama of the night city part 5) | (153px x 151px)
+| outwin1.png | Image of the view outside the window option 3 (Nature)                                | (153px x 151px)
+| outwin2.png | Image of the view outside the window option 4 (Forest)                                    | (153px x 151px)
+| outwin3.png | Image of the view outside the window option 5 (Lake)                                  | (153px x 151px)
+| art.png | Curtain canvas image option 1 (Abstraction white background)                   | (100px x 150px)
+| art1.png | Curtain canvas image option 2 (Abstraction black background)                  | (141px x 125px)
+| art_city.png | Canvas curtain image option 3 (Night City black background)                | (141px x 125px)
+| art3.png | Curtain canvas image option 1 (Abstraction white background)                   | (142px x 145px)
+| art4.png | Picture of the curtain cloth option 4 (Blue curtain on the curtain)                 | (141px x 130px)
+| purple.png | Image of a purple curtain cloth | (1px x 1px)
+| liteblue.png | Image of a blue curtain cloth | (1px x 1px)
+| litegreen.png | Image of a light green curtain cloth | (1px x 1px)
+| sc_shutter_slide.png | Louver image (top 4 pixels white, bottom with transparent gradient) | (1px x 6px)
+| sc_shutter_bottom.png | Image of the bottom bar of the roller blinds | (137px x 7px)
 
 <a id="A5"></a>
-### Примеры кода карточки
+### Examples of the card code
 
-**Пример минимального кода карточки**
+**Example of the minimum card code**
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample1.png)
 ```yaml
@@ -106,7 +106,7 @@ entities:
 - entity: cover.roll_1
 ```
 
-**Пример кода карточки 1**
+**Sample card code 1**
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample2.png)
 ```yaml
@@ -152,7 +152,7 @@ cards:
     shutter_animation: not show
 ```
 
-**Пример кода карточки 2**
+**Sample card code 2**
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample3.png)
 ```yaml
@@ -208,7 +208,7 @@ cards:
     shutter_animation: show
 ```
 
-**Пример кода карточки 3**
+**Sample card code 3**
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample4.png)
 ```yaml
@@ -248,7 +248,7 @@ cards:
     shutter_max_position: 100
 ```
 
-**Пример кода карточки 4**
+**Sample card code 4**
 
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample5.png)
 ```yaml
@@ -280,7 +280,12 @@ cards:
     shutter_max_position: 142
 ```
 <a id="A6"></a>
-## Благодарности
+### Thanks
 
-Эта карточка является модернизацией карточки [hass-shutter-card](https://github.com/Deejayfool/hass-shutter-card).
-Спасибо автору [Deejayfool](https://github.com/Deejayfool).
+This card is an upgrade of the [has-shutter-card](https://github.com/Deejayfool/has-shutter-card).
+Thanks to the author [Deejayfool](https://github.com/Deejayfool).
+
+<a id="A7"></a>
+## Donations
+You can support this or other projects.
+[![Donate](https://img.shields.io/badge/donate-Yandex-red.svg)](https://yoomoney.ru/fundraise/b8GYBARCVRE.230309)
