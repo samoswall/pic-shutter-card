@@ -52,10 +52,10 @@
 | title_position       | string  | Не обязательно     | `top`                         | Местоположение имени шторы и процента открытия: сверху - `top` , снизу - `bottom`
 | outside_window       | string  | Не обязательно     | `not show`                    | Отображение картинки вида за окном: показывать - `show` , не показывать - любое другое значение
 | invert_percentage    | boolean | Не обязательно     | `false`                       | Инверсия положения шторы. Установите `true` если 100% - штора закрыта и 0% when it is opened
-| outside_window_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/outside_window.png`    | Файл изображения вида за окном. Загружены с карточкой: `outside_window.png` `outwin1.png` `outwin2.png` `outwin3.png`
-| frame_window_pic     | string  | Не обязательно     | `/local/community/pic-shutter-card/frame_window.png`      | Файл изображения рамы окна. Загружены с карточкой: `frame_window.png` `frame_win1.png` `frame_win2.png`
-| shutter_slide_pic    | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | Файл изображения полотна шторы. Загружены с карточкой:
-| shutter_bottom_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Файл изображения нижней планки у рулонных штор. Загружен с карточкой:
+| outside_window_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/outside_window.png`    | Файл изображения вида за окном. Загружены с карточкой: `outside_window.png` `outside_window1.png` `outside_window2.png` `outside_window3.png` `outside_window4.png` `outside_window5.png` `outwin1.png` `outwin2.png` `outwin3.png `
+| frame_window_pic     | string  | Не обязательно     | `/local/community/pic-shutter-card/frame_window.png`      | Файл изображения рамы окна. Загружены с карточкой: `frame_window.png` `frame_win1.png` `frame_win1_2.png` `frame_win2.png`
+| shutter_slide_pic    | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | Файл изображения полотна шторы. Загружены с карточкой: `art.png` `art1.png` `art_city.png` `art3.png` `art4.png` `purple.png` `liteblue.png` `litegreen.png` `sc_shutter_slide.png`
+| shutter_bottom_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Файл изображения нижней планки у рулонных штор. Загружен с карточкой: `sc_shutter_bottom.png`
 | shutter_min_position | int     | Не обязательно     | 4                            | Минимальное положение шторы. (в открытом положении)
 | shutter_max_position | int     | Не обязательно     | 127                          | Максимальное положение шторы. (в закрытом положении)
 | shutter_heigth       | int     | Не обязательно     | 140                          | Высота шторы. Используется только для штор, у которых направление открытия влево и/или вправо.
