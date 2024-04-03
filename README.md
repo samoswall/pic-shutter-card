@@ -68,31 +68,31 @@
 
 В папке карточки `pic-shutter-card` уже имеются некоторые изображения:
 
-| Файл                  | Описание                                                                     | Размер изображения
-| ----                  | -----------                                                                  | -----------
-| frame_window.png      | Рама окна вариант 1 (вертикальные жалюзи)                                    | (153px х 151px)
-| frame_win1.png        | Рама окна вариант 2 (белая рама с подоконником)                              | (153px х 151px)
-| frame_win1_2.png      | Рама окна вариант 2 c гардиной для полотна шторы art4.png                    | (153px х 151px)
-| frame_win2.png        | Рама окна вариант 3 (коричневая рама)                                        | (153px х 151px)
-| outside_window.png    | Изображение вида за окном вариант 1 (Москва Сити)                            | (153px х 151px)
-| outside_window1.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 1)        | (153px х 151px)
-| outside_window2.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 2)        | (153px х 151px)
-| outside_window3.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 3)        | (153px х 151px)
-| outside_window4.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 4)        | (153px х 151px)
-| outside_window5.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 5)        | (153px х 151px)
-| outwin1.png           | Изображение вида за окном вариант 3 (Природа)                                | (153px х 151px)
-| outwin2.png           | Изображение вида за окном вариант 4 (Лес)                                    | (153px х 151px)
-| outwin3.png           | Изображение вида за окном вариант 5 (Озеро)                                  | (153px х 151px)
-| art.png               | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (100px х 150px)
-| art1.png              | Изображение полотна шторы вариант 2 (Абстракция черный фон)                  | (141px х 125px)
-| art_city.png          | Изображение полотна шторы вариант 3 (Ночной город черный фон)                | (141px х 125px)
-| art3.png              | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (142px х 145px)
-| art4.png              | Изображение полотна шторы вариант 4 (Синяя штора на гардине)                 | (141px х 130px)
-| purple.png            | Изображение сиреневого полотна шторы                                         | (1px х 1px)
-| liteblue.png          | Изображение голубого полотна шторы                                           | (1px х 1px)
-| litegreen.png         | Изображение светлозеленого полотна шторы                                     | (1px х 1px)
-| sc_shutter_slide.png  | Изображение жалюзи (верхние 4 пикселя белые, нижние с прозрачным градиентом) | (1px х 6px)
-| sc_shutter_bottom.png | Изображение нижней планки у рулонных штор                                    | (137px х 7px)
+| Файл                  | Описание                                                                     | Размер изображения |  Изображение
+| ----                  | -----------                                                                  | -----------        | --------
+| frame_window.png      | Рама окна вариант 1 (вертикальные жалюзи)                                    | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/frame_window.png)
+| frame_win1.png        | Рама окна вариант 2 (белая рама с подоконником)                              | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/frame_win1.png)
+| frame_win1_2.png      | Рама окна вариант 2 c гардиной для полотна шторы art4.png                    | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/frame_win1_2.png)
+| frame_win2.png        | Рама окна вариант 3 (коричневая рама)                                        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/frame_win2.png)
+| outside_window.png    | Изображение вида за окном вариант 1 (Москва Сити)                            | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window.png)
+| outside_window1.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 1)        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window1.png)
+| outside_window2.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 2)        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window2.png)
+| outside_window3.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 3)        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window3.png)
+| outside_window4.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 4)        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window4.png)
+| outside_window5.png   | Изображение вида за окном вариант 2 (Панорама ночного города часть 5)        | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outside_window5.png)
+| outwin1.png           | Изображение вида за окном вариант 3 (Природа)                                | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outwin1.png)
+| outwin2.png           | Изображение вида за окном вариант 4 (Лес)                                    | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outwin2.png)
+| outwin3.png           | Изображение вида за окном вариант 5 (Озеро)                                  | (153px х 151px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/outwin3.png)
+| art.png               | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (100px х 150px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/art.png)
+| art1.png              | Изображение полотна шторы вариант 2 (Абстракция черный фон)                  | (141px х 125px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/art1.png)
+| art_city.png          | Изображение полотна шторы вариант 3 (Ночной город черный фон)                | (141px х 125px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/art_city.png)
+| art3.png              | Изображение полотна шторы вариант 1 (Абстракция белый фон)                   | (142px х 145px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/art3.png)
+| art4.png              | Изображение полотна шторы вариант 4 (Синяя штора на гардине)                 | (141px х 130px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/art4.png)
+| purple.png            | Изображение сиреневого полотна шторы                                         | (1px х 1px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/purple.png)
+| liteblue.png          | Изображение голубого полотна шторы                                           | (1px х 1px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/liteblue.png)
+| litegreen.png         | Изображение светлозеленого полотна шторы                                     | (1px х 1px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/litegreen.png)
+| sc_shutter_slide.png  | Изображение жалюзи (верхние 4 пикселя белые, нижние с прозрачным градиентом) | (1px х 6px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/sc_shutter_slide.png)
+| sc_shutter_bottom.png | Изображение нижней планки у рулонных штор                                    | (137px х 7px)      | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/sc_shutter_bottom.png)
 
 <a id="A5"></a>
 ### Примеры кода карточки
