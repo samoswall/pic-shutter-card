@@ -90,11 +90,27 @@ class ShutterCard extends HTMLElement {
           shuttertop = parseInt(entity.shutter_top);
         }
 
+        let shutterpicheight = 155;
+        if (entity && entity.shutter_pic_height) {
+          shutterpicheight = parseInt(entity.shutter_pic_height);
+        }
+
+        let shutterleft = 5;
+        if (entity && entity.shutter_left) {
+          shutterleft = parseInt(entity.shutter_left);
+        }
+
+        let shutterwidth = 90;
+        if (entity && entity.shutter_width) {
+          shutterwidth = parseInt(entity.shutter_width);
+        }
+
         _this.minPosition = shutterminposition;
         _this.maxPosition = shuttermaxposition;
         _this.shuttertop = shuttertop;
         _this.shutterdirection = shutterdirection;
         _this.setConfig(_this.config, shutterminposition, shuttermaxposition);
+        _this.shutterpicheight = shutterpicheight;
 
         let shutter = document.createElement('div');
 
@@ -114,10 +130,10 @@ class ShutterCard extends HTMLElement {
               <ha-icon-button class="sc-shutter-button" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
-              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `">
-                <div class="sc-shutter-selector-slide" style="background-position: center bottom; background-image: url(` + shutterslidepic + `); top: ` + shuttertop + `px;"></div>
+              <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `" style="height: ` + shutterpicheight + `px;">
+                <div class="sc-shutter-selector-slide" style="background-position: center bottom; background-image: url(` + shutterslidepic + `); top: ` + shuttertop + `px; left: ` + shutterleft + `px; width: ` + shutterwidth + `px;"></div>
                 <div class="sc-shutter-selector-slide2" style="background-position: center bottom; background-image: url(` + shutterslidepic + `); top: ` + shuttertop + `px;"></div>
-                <div class="sc-shutter-selector-picker" style="background-image: url(` + shutterbottompic + `); top: ` + shuttertop + `px; background-position: center;"></div>
+                <div class="sc-shutter-selector-picker" style="background-image: url(` + shutterbottompic + `); top: ` + shuttertop + `px; left: ` + shutterleft + `px; background-position: center;"></div>
                 <div class="container_up" style="display: none;">
                   <div class="chevron_up"></div>
                   <div class="chevron_up"></div>
@@ -307,7 +323,7 @@ class ShutterCard extends HTMLElement {
     .sc-shutter-middle { display: flex; margin: 5px 5px; width: 93%; justify-content: center;}
     .sc-shutter-buttons { text-align: center; margin-top: 0.5rem; width: 25%; min-width: 40px;}
     .sc-shutter-selector-picture { position: relative; margin: auto; background-size: cover; min-height: 150px; max-height: 100%; width: auto; }
-    .frame-window { position: relative; width: 100%; height: 155px;}
+    .frame-window { position: relative; width: 100%; height: ` + _this.shutterpicheight + `px;}
     .sc-shutter-outside-window {position: absolute; left: 4%; top: 9px; height: 140px; width: 92%;}
     .sc-shutter-selector-slide { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 0%; height: 0;}
     .sc-shutter-selector-slide2 { position: absolute; top: ` + _this.minPosition + `px; left: 5%; width: 0%; height: 0; }
@@ -789,6 +805,11 @@ class ShutterCard extends HTMLElement {
         shuttermaxposition = parseInt(entity.shutter_max_position);
       }
 
+      let shutterwidth = 90;
+      if (entity && entity.shutter_width) {
+        shutterwidth = parseInt(entity.shutter_width);
+      }
+
       const shutter = _this.card.querySelector('div[data-shutter="' + entityId +'"]');
       const slide = shutter.querySelector('.sc-shutter-selector-slide');
       const picker = shutter.querySelector('.sc-shutter-selector-picker');
@@ -808,9 +829,9 @@ class ShutterCard extends HTMLElement {
         })
 
         if (invertPercentage) {
-          _this.setPickerPositionPercentage(currentPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop);
+          _this.setPickerPositionPercentage(currentPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth);
         } else {
-          _this.setPickerPositionPercentage(100 - currentPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop);
+          _this.setPickerPositionPercentage(100 - currentPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth);
         }
         if (shutteranimation == 'show') { _this.setMovement(movementState, shutter, shutterdirection);  }
       }
@@ -897,13 +918,13 @@ class ShutterCard extends HTMLElement {
       return pictureLeft;
   }    
 
-  setPickerPositionPercentage(position, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop) {
+  setPickerPositionPercentage(position, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth) {
     let realPosition = (this.maxPosition - this.minPosition) * position / 100 + this.minPosition;
   
-    this.setPickerPosition(realPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop);
+    this.setPickerPosition(realPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth);
   }
   
-  setPickerPosition(position, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop) {
+  setPickerPosition(position, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth) {
     if (position < this.minPosition)
       position = this.minPosition;
   
@@ -914,7 +935,7 @@ class ShutterCard extends HTMLElement {
        case 'up':
           picker.style.top = position + this.minPosition + shuttertop - 8 + 'px';
           slide.style.height = position + this.minPosition + 'px';
-		  slide.style.width = 90 + '%';
+		  slide.style.width = shutterwidth + '%';
 		  picker.style.width = slide.style.width;
 		  picker.style.height = '10px';
           break;
