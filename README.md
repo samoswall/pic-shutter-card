@@ -56,12 +56,15 @@
 | frame_window_pic     | string  | Не обязательно     | `/local/community/pic-shutter-card/frame_window.png`      | Файл изображения рамы окна. Загружены с карточкой: `frame_window.png` `frame_win1.png` `frame_win1_2.png` `frame_win2.png`
 | shutter_slide_pic    | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_slide.png`  | Файл изображения полотна шторы. Загружены с карточкой: `art.png` `art1.png` `art_city.png` `art3.png` `art4.png` `purple.png` `liteblue.png` `litegreen.png` `sc_shutter_slide.png`
 | shutter_bottom_pic   | string  | Не обязательно     | `/local/community/pic-shutter-card/sc_shutter_bottom.png` | Файл изображения нижней планки у рулонных штор. Загружен с карточкой: `sc_shutter_bottom.png`
-| shutter_min_position | int     | Не обязательно     | 4                            | Минимальное положение шторы. (в открытом положении)
-| shutter_max_position | int     | Не обязательно     | 127                          | Максимальное положение шторы. (в закрытом положении)
-| shutter_heigth       | int     | Не обязательно     | 140                          | Высота шторы. Используется только для штор, у которых направление открытия влево и/или вправо.
+| shutter_min_position | int (px)| Не обязательно     | 4                            | Минимальное положение шторы. (в открытом положении)
+| shutter_max_position | int (px)| Не обязательно     | 127                          | Максимальное положение шторы. (в закрытом положении)
+| shutter_heigth       | int (px)| Не обязательно     | 140                          | Высота шторы. Используется только для штор, у которых направление открытия влево и/или вправо.
 | shutter_direction    | string  | Не обязательно     | `up`                         | Направление открытия шторы: вверх - `up` , влево - `left` , вправо - `right` , влево и вправо одновременно - `leftright`
-| shutter_top          | int     | Не обязательно     | 17                           | Отступ от верхнего края окна до полотна шторы. Значение в пикселях. (высота окна 141 пиксель)
+| shutter_top          | int (px)| Не обязательно     | 17                           | Отступ от верхнего края окна до полотна шторы. Значение в пикселях. (высота окна 141 пиксель)
 | shutter_animation    | string  | Не обязательно     | `show`                       | Отображение анимации направления движения: показывать - `show` , не показывать - любое другое значение
+| shutter_pic_height   | int (px)| Не обязательно     | 155                          | Высота изображения окна. Увеличивает вертикальный размер карточки.
+| shutter_left         | int (%) | Не обязательно     | 5                            | Отступ полотна шторы от левого края окна. Указывается в % от размера окна.
+| shutter_width        | int (%) | Не обязательно     | 90                           | Ширина полотна шторы. Указывается в % от размера окна.
 
 <a id="A4"></a>
 ## Описание файлов изображений
@@ -93,6 +96,8 @@
 | litegreen.png         | Изображение светлозеленого полотна шторы                                     | (1px х 1px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/litegreen.png)
 | sc_shutter_slide.png  | Изображение жалюзи (верхние 4 пикселя белые, нижние с прозрачным градиентом) | (1px х 6px)        | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/sc_shutter_slide.png)
 | sc_shutter_bottom.png | Изображение нижней планки у рулонных штор                                    | (137px х 7px)      | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/sc_shutter_bottom.png)
+| pic_balcon_l.png      | Рама окна с дверью. (левая)                                                  | (232px x 610px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/pic_balcon_l.png)
+| pic_balcon_r.png      | Рама окна с дверью. (правая)                                                 | (234px x 610px)    | ![all](https://github.com/samoswall/pic-shutter-card/blob/main/dist/pic_balcon_r.png)
 
 <a id="A5"></a>
 ### Примеры кода карточки
@@ -278,6 +283,42 @@ cards:
     shutter_min_position: 3
     shutter_top: 5
     shutter_max_position: 142
+```
+
+**Пример кода карточки 5**
+
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample6.png)
+```yaml
+type: horizontal-stack
+cards:
+  - type: custom:pic-shutter-card
+    entities:
+      - entity: cover.roll_1
+        name: ' '
+        buttons_position: left
+        title_position: bottom
+        outside_window: show
+        frame_window_pic: /local/community/pic-shutter-card/pic_balcon_l.png
+        shutter_min_position: 3
+        shutter_top: 18
+        shutter_left: 21
+        shutter_max_position: 257
+        shutter_pic_height: 300
+        shutter_width: 74
+  - type: custom:pic-shutter-card
+    entities:
+      - entity: cover.roll_2
+        name: ' '
+        buttons_position: right
+        title_position: bottom
+        outside_window: show
+        frame_window_pic: /local/community/pic-shutter-card/pic_balcon_r.png
+        shutter_min_position: 3
+        shutter_top: 18
+        shutter_left: 3
+        shutter_max_position: 173
+        shutter_pic_height: 300
+        shutter_width: 80
 ```
 <a id="A6"></a>
 ## Благодарности
