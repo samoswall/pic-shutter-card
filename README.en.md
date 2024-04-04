@@ -287,7 +287,7 @@ cards:
 
 **Sample card code 5**
 
-![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample6.png)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample6.gif)
 ```yaml
 type: horizontal-stack
 cards:
