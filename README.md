@@ -9,6 +9,7 @@
 
 **Карточка штор для Lovelace UI Home Assistant**
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample.gif)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample0.gif)
 **Карточка отображает текущее положение шторы, позволяет управлять её положением и имеет пользовательские настройки для устоновки произвольных изображений окна, вида за окном и полотна шторы.**
 
 ## Содержание
