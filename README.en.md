@@ -9,6 +9,7 @@
 
 **Curtain Card for Lovelace UI Home Assistant**
 ![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample.gif)
+![all](https://github.com/samoswall/pic-shutter-card/blob/main/Image/sample0.gif)
 **The card displays the current position of the curtain, allows you to control its position and has user settings for adjusting arbitrary images of the window, the view outside the window and the curtain canvas.**
 
 ## Content
@@ -65,6 +66,7 @@ In the HACS section in the search, enter **pic-shutter-card**, select the card, 
 | shutter_pic_height   | int (px)| false              | 155                          | The height of the window image. Increases the vertical size of the card.
 | shutter_left         | int (%) | false              | 5                            | The indentation of the curtain cloth from the left edge of the window. It is specified as a % of the window size.
 | shutter_width        | int (%) | false              | 90                           | The width of the curtain cloth. It is specified as a % of the window size.
+| shutter_end_offset   | int (%) | false              | 0                            | The offset of the lower value of the curtain cloth. Specified in % of 100. (Example: If at 80% the curtain completely covers the window, then offset 20 will display as 100% closed)
 
 <a id="A4"></a>
 ### Description of image files
