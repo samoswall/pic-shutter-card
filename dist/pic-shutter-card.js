@@ -1,4 +1,4 @@
-// pic-shutter-card version 1.2.0
+// pic-shutter-card version 1.2.2
 
 class ShutterCard extends HTMLElement {
 
@@ -105,6 +105,11 @@ class ShutterCard extends HTMLElement {
           shutterwidth = parseInt(entity.shutter_width);
         }
 
+        let endoffset = 0;
+        if (entity && entity.shutter_end_offset) {
+          endoffset = parseInt(entity.shutter_end_offset);
+        }
+
         _this.minPosition = shutterminposition;
         _this.maxPosition = shuttermaxposition;
         _this.shuttertop = shuttertop;
@@ -187,7 +192,7 @@ class ShutterCard extends HTMLElement {
         
         let picture = shutter.querySelector('.sc-shutter-selector-picture');
         let slide = shutter.querySelector('.sc-shutter-selector-slide');
-		let slide2 = shutter.querySelector('.sc-shutter-selector-slide2');
+        let slide2 = shutter.querySelector('.sc-shutter-selector-slide2');
         let picker = shutter.querySelector('.sc-shutter-selector-picker');
      
         let mouseDown = function(event) {
@@ -208,8 +213,8 @@ class ShutterCard extends HTMLElement {
         };
   
         let mouseMove = function(event) {
-			var newPosition = 0;
-		    switch (shutterdirection) {
+            var newPosition = 0;
+            switch (shutterdirection) {
                 case 'up':
                     newPosition = event.pageY - _this.getPictureTop(picture) - _this.shuttertop;
                     break;  
@@ -219,7 +224,7 @@ class ShutterCard extends HTMLElement {
                 case 'right':
                     newPosition = 100 - ((event.pageX - _this.getPictureLeft(picture)) / picture.offsetWidth * 100);
                     break;
-				case 'leftright':
+                case 'leftright':
                     newPosition = (100 - (event.pageX - _this.getPictureLeft(picture)) / picture.offsetWidth * 100) * 2;
                     break;
                 }
@@ -239,7 +244,7 @@ class ShutterCard extends HTMLElement {
                 case 'right':
                     newPosition = 100 - ((event.pageX - _this.getPictureLeft(picture)) / picture.offsetWidth * 100 );
                     break;
-				case 'leftright':
+                case 'leftright':
                     newPosition = (100 - (event.pageX - _this.getPictureLeft(picture)) / picture.offsetWidth * 100) * 2;
                     break;
                 }
@@ -250,8 +255,8 @@ class ShutterCard extends HTMLElement {
           if (newPosition > _this.maxPosition)
             newPosition = _this.maxPosition;
 
-		  let percentagePosition = 0;
-		  switch (shutterdirection) {
+          let percentagePosition = 0;
+          switch (shutterdirection) {
                 case 'up':
                     percentagePosition = (newPosition - _this.minPosition) * 100 / (_this.maxPosition - _this.minPosition);
                     break;  
@@ -261,10 +266,12 @@ class ShutterCard extends HTMLElement {
                 case 'right':
                     percentagePosition = 100 - ((newPosition - _this.minPosition) * 100 / (_this.maxPosition - _this.minPosition));
                     break;
-				case 'leftright':
+                case 'leftright':
                     percentagePosition = 100 - (((newPosition - _this.minPosition) * 100 / (_this.maxPosition - _this.minPosition)));
                     break;
                 }
+
+          if (endoffset!=0) { percentagePosition = percentagePosition * ((100 - endoffset) / 100); }
 
           if (invertPercentage) {
             _this.updateShutterPosition(hass, entityId, percentagePosition);
@@ -794,8 +801,8 @@ class ShutterCard extends HTMLElement {
       if (entity && entity.shutter_top) {
         shuttertop = parseInt(entity.shutter_top);
       }
-	  
-	  let shutterminposition = 4;
+
+      let shutterminposition = 4;
       if (entity && entity.shutter_min_position) {
         shutterminposition = parseInt(entity.shutter_min_position);
       }
@@ -810,6 +817,11 @@ class ShutterCard extends HTMLElement {
         shutterwidth = parseInt(entity.shutter_width);
       }
 
+      let endoffset = 0;
+      if (entity && entity.shutter_end_offset) {
+        endoffset = parseInt(entity.shutter_end_offset);
+      }
+
       const shutter = _this.card.querySelector('div[data-shutter="' + entityId +'"]');
       const slide = shutter.querySelector('.sc-shutter-selector-slide');
       const picker = shutter.querySelector('.sc-shutter-selector-picker');
@@ -817,15 +829,20 @@ class ShutterCard extends HTMLElement {
 
       const state = hass.states[entityId];
       const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
-      const currentPosition = state ? state.attributes.current_position : '100';
+      let currentPosition = state ? state.attributes.current_position : '100';
       const movementState = state? state.state : 'unknown';
       shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
           shutterLabel.innerHTML = friendlyName;
       })
 
+      if (endoffset!=0) { 
+        currentPosition = Math.floor(( currentPosition * 100) / (100 - endoffset));
+        if (currentPosition>100) {currentPosition = 100}
+      }
+
       if (!_this.isUpdating) {
         shutter.querySelectorAll('.sc-shutter-position').forEach(function (shutterPosition) {
-          shutterPosition.innerHTML = currentPosition + '%';
+          shutterPosition.innerHTML = invertPercentage?((100 - currentPosition) + '%'):(currentPosition + '%');
         })
 
         if (invertPercentage) {
@@ -833,14 +850,14 @@ class ShutterCard extends HTMLElement {
         } else {
           _this.setPickerPositionPercentage(100 - currentPosition, picker, slide, shutterdirection, shutterheigth, slide2, shuttertop, shutterwidth);
         }
-        if (shutteranimation == 'show') { _this.setMovement(movementState, shutter, shutterdirection);  }
+        if (shutteranimation == 'show') { _this.setMovement(movementState, shutter, shutterdirection, invertPercentage);  }
       }
     });
   }
   
-  setMovement(movement, shutter,shutterdirection) {
+  setMovement(movement, shutter,shutterdirection, invertPercentage) {
     if (movement == "opening" || movement == "closing") {
-        let opening = movement == "opening"
+        let opening = invertPercentage?(movement == "closing"):(movement == "opening")
         switch (shutterdirection) {
           case 'up':
             shutter.querySelectorAll(".container_up").forEach(
@@ -858,7 +875,7 @@ class ShutterCard extends HTMLElement {
               (overlay) => overlay.style.display = opening?"none":"flex"
             )
           break;
-		  case 'right':
+          case 'right':
             shutter.querySelectorAll(".container_right").forEach(
               (overlay) => overlay.style.display = opening?"flex":"none"
             )
@@ -866,7 +883,7 @@ class ShutterCard extends HTMLElement {
               (overlay) => overlay.style.display = opening?"none":"flex"
             )
           break;
-		  case 'leftright':
+          case 'leftright':
             shutter.querySelectorAll(".container_leftright_out").forEach(
               (overlay) => overlay.style.display = opening?"flex":"none"
             )
@@ -874,7 +891,7 @@ class ShutterCard extends HTMLElement {
               (overlay) => overlay.style.display = opening?"none":"flex"
             )
           break;
-	  }
+      }
     }
     else {
       shutter.querySelectorAll(".container_up").forEach(
@@ -883,13 +900,13 @@ class ShutterCard extends HTMLElement {
       shutter.querySelectorAll(".container_down").forEach(
         (overlay) => overlay.style.display = "none"
       )
-	  shutter.querySelectorAll(".container_left").forEach(
+      shutter.querySelectorAll(".container_left").forEach(
         (overlay) => overlay.style.display = "none"
       )
       shutter.querySelectorAll(".container_right").forEach(
         (overlay) => overlay.style.display = "none"
       )
-	  shutter.querySelectorAll(".container_leftright_in").forEach(
+      shutter.querySelectorAll(".container_leftright_in").forEach(
         (overlay) => overlay.style.display = "none"
       )
       shutter.querySelectorAll(".container_leftright_out").forEach(
@@ -935,45 +952,45 @@ class ShutterCard extends HTMLElement {
        case 'up':
           picker.style.top = position + this.minPosition + shuttertop - 8 + 'px';
           slide.style.height = position + this.minPosition + 'px';
-		  slide.style.width = shutterwidth + '%';
-		  picker.style.width = slide.style.width;
-		  picker.style.height = '10px';
+          slide.style.width = shutterwidth + '%';
+          picker.style.width = slide.style.width;
+          picker.style.height = '10px';
           break;
        case 'left':
           slide.style.height = shutterheigth + 'px';
           slide.style.backgroundSize = 'auto ' + shutterheigth + 'px';
           slide.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) + '%';
           slide.style.backgroundPosition = 'right bottom';
-		  slide.style.left = this.minPosition + '%';
-		  picker.style.width = '10px';
-		  picker.style.height = slide.style.height;
-		  picker.style.left = position - 6 + '%';
+          slide.style.left = this.minPosition + '%';
+          picker.style.width = '10px';
+          picker.style.height = slide.style.height;
+          picker.style.left = position - 6 + '%';
           break;
        case 'right':
           slide.style.height = shutterheigth + 'px';
           slide.style.backgroundSize = 'auto ' + shutterheigth + 'px';
-		  slide.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) + '%';
-		  slide.style.left = this.maxPosition - position + this.minPosition + '%';
+          slide.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) + '%';
+          slide.style.left = this.maxPosition - position + this.minPosition + '%';
           slide.style.backgroundPosition = 'left bottom';
-		  picker.style.width = '10px';
-		  picker.style.height = slide.style.height;
-		  picker.style.left = this.maxPosition - position + this.minPosition + '%';
+          picker.style.width = '10px';
+          picker.style.height = slide.style.height;
+          picker.style.left = this.maxPosition - position + this.minPosition + '%';
           break;
        case 'leftright':
           slide.style.height = shutterheigth + 'px';
           slide.style.backgroundSize = 'auto ' + shutterheigth + 'px';
           slide.style.backgroundPosition = 'right bottom';
-		  slide.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';
-		  slide.style.left = this.minPosition + '%';
+          slide.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';
+          slide.style.left = this.minPosition + '%';
 
           slide2.style.height = shutterheigth + 'px';
           slide2.style.backgroundSize = 'auto ' + shutterheigth + 'px';
           slide2.style.backgroundPosition = 'left bottom';
-		  slide2.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';
-		  slide2.style.left = (this.maxPosition - position + this.minPosition) + (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';	
-		  picker.style.width = '10px';
-		  picker.style.height = slide.style.height;
-		  picker.style.left = this.maxPosition - (position / 2) + '%';
+          slide2.style.width = (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';
+          slide2.style.left = (this.maxPosition - position + this.minPosition) + (position / this.maxPosition * 100 * (this.maxPosition / 100) - this.minPosition) / 2 + '%';	
+          picker.style.width = '10px';
+          picker.style.height = slide.style.height;
+          picker.style.left = this.maxPosition - (position / 2) + '%';
           break;
     }
   }
