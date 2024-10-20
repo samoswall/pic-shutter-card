@@ -1,4 +1,4 @@
-// pic-shutter-card version 1.2.2
+// pic-shutter-card version 1.2.3
 
 class ShutterCard extends HTMLElement {
 
@@ -110,6 +110,16 @@ class ShutterCard extends HTMLElement {
           endoffset = parseInt(entity.shutter_end_offset);
         }
 
+        let replace0percent = 'notuse';
+        if (entity && entity.replace_0_percent) {
+          replace0percent = entity.replace_0_percent;
+        }
+
+        let replace100percent = 'notuse';
+        if (entity && entity.replace_100_percent) {
+          replace100percent = entity.replace_100_percent;
+        }
+
         _this.minPosition = shutterminposition;
         _this.maxPosition = shuttermaxposition;
         _this.shuttertop = shuttertop;
@@ -130,9 +140,9 @@ class ShutterCard extends HTMLElement {
           </div>
           <div class="sc-shutter-middle" style="flex-direction: ` + (buttonsPosition == 'right' ? 'row-reverse': 'row') + `;">
             <div class="sc-shutter-buttons"` + (buttonsPosition == 'not show' ? ' style="display: none;"': '') + `>
-              <ha-icon-button class="sc-shutter-button" data-command="up"><ha-icon icon="mdi:arrow-up"></ha-icon></ha-icon-button><br>
-              <ha-icon-button class="sc-shutter-button" data-command="stop"><ha-icon icon="mdi:stop"></ha-icon></ha-icon-button><br>
-              <ha-icon-button class="sc-shutter-button" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
+              <ha-icon-button class="sc-shutter-button-up" data-command="up"><ha-icon icon="mdi:arrow-up"></ha-icon></ha-icon-button><br>
+              <ha-icon-button class="sc-shutter-button-stop" data-command="stop"><ha-icon icon="mdi:stop"></ha-icon></ha-icon-button><br>
+              <ha-icon-button class="sc-shutter-button-down" data-command="down"><ha-icon icon="mdi:arrow-down"></ha-icon></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
               <div class="sc-shutter-selector-picture"><img class="sc-shutter-outside-window" src="` + outsideWindowpic + `"` + (outsideWindow == 'show' ? '' : ' style="display:none;"') + `><img class="frame-window" src="` + framewindowpic + `" style="height: ` + shutterpicheight + `px;">
@@ -294,7 +304,7 @@ class ShutterCard extends HTMLElement {
         picker.addEventListener('pointerdown', mouseDown);
         
         //Manage click on buttons
-        shutter.querySelectorAll('.sc-shutter-button').forEach(function (button) {
+        shutter.querySelectorAll('.sc-shutter-button-up, .sc-shutter-button-stop,.sc-shutter-button-down').forEach(function (button) {
             button.onclick = function () {
                 const command = this.dataset.command;
                 
@@ -822,10 +832,22 @@ class ShutterCard extends HTMLElement {
         endoffset = parseInt(entity.shutter_end_offset);
       }
 
+      let replace0percent = 'notuse';
+      if (entity && entity.replace_0_percent) {
+        replace0percent = entity.replace_0_percent;
+      }
+
+      let replace100percent = 'notuse';
+      if (entity && entity.replace_100_percent) {
+        replace100percent = entity.replace_100_percent;
+      }
+
       const shutter = _this.card.querySelector('div[data-shutter="' + entityId +'"]');
       const slide = shutter.querySelector('.sc-shutter-selector-slide');
       const picker = shutter.querySelector('.sc-shutter-selector-picker');
       const slide2 = shutter.querySelector('.sc-shutter-selector-slide2');
+      const buttonup = shutter.querySelector('.sc-shutter-button-up');
+      const buttondown = shutter.querySelector('.sc-shutter-button-down');
 
       const state = hass.states[entityId];
       const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
@@ -842,7 +864,34 @@ class ShutterCard extends HTMLElement {
 
       if (!_this.isUpdating) {
         shutter.querySelectorAll('.sc-shutter-position').forEach(function (shutterPosition) {
-          shutterPosition.innerHTML = invertPercentage?((100 - currentPosition) + '%'):(currentPosition + '%');
+          if ((currentPosition == 100 || currentPosition == 0) && (replace0percent != 'notuse' || replace100percent != 'notuse')) {
+              if (currentPosition == 100){
+                shutterPosition.innerHTML = invertPercentage?(replace0percent):(replace100percent);
+              } else {
+                shutterPosition.innerHTML = invertPercentage?(replace100percent):(replace0percent);
+              }
+          } else {
+            shutterPosition.innerHTML = invertPercentage?((100 - currentPosition) + '%'):(currentPosition + '%');
+          }
+          if (currentPosition == 0 || currentPosition == 100) {
+            if (currentPosition == 100) {
+              buttonup.style.color = invertPercentage?('var(--primary-text-color)'):('var(--disabled-text-color)');
+              buttonup.style.pointerEvents = invertPercentage?'auto':'none';
+              buttondown.style.color = invertPercentage?('var(--disabled-text-color)'):('var(--primary-text-color)');
+              buttondown.style.pointerEvents = invertPercentage?'none':'auto';
+            } 
+            if (currentPosition == 0) {
+              buttonup.style.color = invertPercentage?('var(--disabled-text-color)'):('var(--primary-text-color)');
+              buttonup.style.pointerEvents = invertPercentage?'none':'auto';
+              buttondown.style.color = invertPercentage?('var(--primary-text-color)'):('var(--disabled-text-color)');
+              buttondown.style.pointerEvents = invertPercentage?'auto':'none';
+            }
+          } else {
+            buttonup.style.color = 'var(--primary-text-color)';
+            buttonup.style.pointerEvents = 'auto';
+            buttondown.style.color = 'var(--primary-text-color)';
+            buttondown.style.pointerEvents = 'auto';
+          }
         })
 
         if (invertPercentage) {
