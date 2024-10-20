@@ -67,6 +67,8 @@ In the HACS section in the search, enter **pic-shutter-card**, select the card, 
 | shutter_left         | int (%) | false              | 5                            | The indentation of the curtain cloth from the left edge of the window. It is specified as a % of the window size.
 | shutter_width        | int (%) | false              | 90                           | The width of the curtain cloth. It is specified as a % of the window size.
 | shutter_end_offset   | int (%) | false              | 0                            | The offset of the lower value of the curtain cloth. Specified in % of 100. (Example: If at 80% the curtain completely covers the window, then offset 20 will display as 100% closed)
+| replace_0_percent    | string  | false              | notuse                       | Replaces the value of 0% with a custom word. For example: Closed, Bottom, etc. Any language is allowed.
+| replace_100_percent  | string  | false              | notuse                       | Replaces the value of 100% with a custom word. For example: Open, Top, etc. Any language is allowed.
 
 <a id="A4"></a>
 ### Description of image files
